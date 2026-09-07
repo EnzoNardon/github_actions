@@ -1,0 +1,33 @@
+name: Create commit
+
+on: workflow_dispatch
+
+jobs:
+  create_commit:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run tests and create log
+        run: pytest > log_pytest.txt
+
+      - name: Commit and push log
+        run: |
+          git config --global user.email "my-bot@bot.com"
+          git config --global user.name "my-bot"
+          git add log_pytest.txt
+          git commit -m "add pytest log from GitHub Actions"
+          git push
