@@ -1,0 +1,19 @@
+name: Salutation
+
+on: workflow_dispatch
+
+env:
+  DAY_OF_WEEK: Lundi
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+
+    env:
+      Greeting: Salut
+
+    steps:
+      - name: Dire bonjour
+        run: echo "$Greeting $First_Name. Nous sommes $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
